@@ -92,15 +92,15 @@
             100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
         }
 
-        /* --- Elementos Flotantes (Gatos + Fotos) --- */
+        /* --- Elementos Flotantes (Gatos + Fotos) - MÁS GRANDES --- */
         .floating-element {
             position: absolute;
             bottom: -250px;
-            width: 180px;
+            width: 180px; /* Mantenemos el tamaño grande */
             height: auto;
             opacity: 0.98;
             z-index: 20;
-            animation: floatUp infinite ease-in;
+            animation: floatUp infinite ease-in; /* La velocidad se cambia por JS */
             border-radius: 20px;
             box-shadow: 0 6px 15px rgba(0,0,0,0.4);
             transition: transform 0.3s ease;
@@ -140,14 +140,13 @@
         const confettiWrapper = document.getElementById('confetti-wrapper');
         const floatingWrapper = document.getElementById('floating-wrapper');
 
-        // GIFs de Gatos y Fotos locales
+        // SOLO los 2 GIFs específicos y tus Fotos locales
         const elementosFlotantes = [
-            'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/3o72EX5QZ9N9d65N2E/giphy.gif',
-            'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/mlvseq9yvZhba/giphy.gif',
-            'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/JIX95AtrU5cHcOcH5l/giphy.gif',
-            'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/C9x8gX02SnMIo/giphy.gif',
-            
-            // Tus Fotos subidas
+            // Los 2 GIFs de gatos solicitados (enlaces directos más estables)
+            'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/owjkiwz58Lmes/giphy.gif', // Gato bailando
+            'https://media.tenor.com/D_iN7w5l85QAAAAd/dormindo-gato.gif', // Gato durmiendo
+
+            // Tus Fotos subidas (foto1.jpeg, foto2.jpeg, foto3.jpeg)
             'foto1.jpeg',
             'foto2.jpeg',
             'foto3.jpeg'
@@ -187,12 +186,15 @@
                 img.src = src;
                 img.classList.add('floating-element');
                 img.style.left = Math.random() * 80 + 10 + 'vw';
-                img.style.animationDuration = (Math.random() * 8 + 8) + 's';
+                
+                // MÁS RÁPIDO: Volvemos a la duración original alegre (entre 4s y 10s)
+                img.style.animationDuration = (Math.random() * 6 + 4) + 's'; 
 
                 floatingWrapper.appendChild(img);
 
-                setTimeout(() => img.remove(), 16000);
-            }, 1000);
+                // Eliminar después de la animación (ajustamos el tiempo a la nueva velocidad)
+                setTimeout(() => img.remove(), 10000); 
+            }, 800); // Un elemento nuevo cada 800ms (antes 1000ms)
         }
     </script>
 
