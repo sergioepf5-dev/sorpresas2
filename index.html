@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CAMBIO DE NOMBRE DE PÁGINA -->
     <title>AAAAA</title>
     <style>
         body, html {
@@ -67,7 +66,7 @@
             text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
         }
 
-        /* --- GLOBOS REALISTAS DESPUÉS DEL CLIC --- */
+        /* --- GLOBOS CIRCULARES Y REALISTAS --- */
         .contenedor-globos {
             position: fixed;
             top: 0;
@@ -75,50 +74,50 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 8; /* Detrás del confeti y fotos */
-            display: none; /* Ocultos al inicio */
+            z-index: 8;
+            display: none;
         }
 
         .globo {
             position: absolute;
             bottom: -150px;
-            width: 100px; /* Un poco más grandes */
-            height: 125px;
-            border-radius: 50% 50% 10% 10%;
-            opacity: 0; /* Empiezan invisibles */
+            width: 100px;
+            height: 100px; /* Redondo (mismo ancho y alto) */
+            border-radius: 50%; /* Esfera perfecta */
+            opacity: 0;
             animation: flotarGlobos infinite linear;
-            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.2), 0 5px 15px rgba(0,0,0,0.3); /* Sombras para realismo */
+            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.2), 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        /* El brillo realista del globo */
+        /* Brillo suave del globo */
         .globo::before {
             content: '';
             position: absolute;
             top: 15%;
             left: 20%;
             width: 25px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.6);
+            height: 25px;
+            background: rgba(255, 255, 255, 0.65);
             border-radius: 50%;
             filter: blur(2px);
         }
 
-        /* El nudo del globo */
+        /* Nudo del globo */
         .globo::after {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 40px;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 12px solid var(--globo-color); /* Color dinámico */
+            bottom: -8px;
+            left: 42px;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 10px solid var(--globo-color);
         }
 
         @keyframes flotarGlobos {
-            0% { transform: translateY(0); opacity: 0; }
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
             10% { opacity: 0.9; }
             90% { opacity: 0.9; }
-            100% { transform: translateY(-120vh); opacity: 0; }
+            100% { transform: translateY(-120vh) rotate(15deg); opacity: 0; }
         }
 
         /* --- Confeti Infinito --- */
@@ -147,7 +146,7 @@
             100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
         }
 
-        /* --- Elementos Flotantes (Gatos + Fotos) --- */
+        /* --- Elementos Flotantes (Menos Rotación) --- */
         .floating-element {
             position: absolute;
             bottom: -250px;
@@ -161,11 +160,13 @@
             transition: transform 0.3s ease;
         }
 
+        /* Animación con rotación suave (máximo ±25 grados) */
         @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            0% { transform: translateY(0) rotate(-10deg); opacity: 0; }
             10% { opacity: 1; }
+            50% { transform: translateY(-60vh) rotate(15deg); }
             90% { opacity: 1; }
-            100% { transform: translateY(-130vh) rotate(360deg); opacity: 0; }
+            100% { transform: translateY(-130vh) rotate(-10deg); opacity: 0; }
         }
     </style>
 </head>
@@ -197,13 +198,14 @@
         const confettiWrapper = document.getElementById('confetti-wrapper');
         const floatingWrapper = document.getElementById('floating-wrapper');
 
-        // SOLO los 2 GIFs y tus Fotos locales
+        // GIFs y Fotos locales (incluyendo foto4.jpeg)
         const elementosFlotantes = [
             'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/owjkiwz58Lmes/giphy.gif', // Gato bailando
-            'gato-duerme.gif', // Gato durmiendo local
+            'gato-duerme.gif', // Gato durmiendo
             'foto1.jpeg',
             'foto2.jpeg',
-            'foto3.jpeg'
+            'foto3.jpeg',
+            'foto4.jpeg' // Nueva foto agregada
         ];
 
         btn.addEventListener('click', () => {
@@ -215,7 +217,7 @@
             musica.play();
 
             // Iniciar Efectos
-            iniciarGlobos(); // Globos ahora después del clic
+            iniciarGlobos();
             iniciarConfetiInfinito();
             iniciarElementosFlotantes();
         });
@@ -223,27 +225,23 @@
         // --- FUNCIONES DE EFECTOS ---
 
         function iniciarGlobos() {
-            globosWrapper.style.display = 'block'; // Mostrar contenedor
+            globosWrapper.style.display = 'block';
             const coloresGlobos = ['#ff1744', '#2979ff', '#00e676', '#ffea00', '#ff4081', '#ffffff'];
             
             setInterval(() => {
                 const globo = document.createElement('div');
                 globo.classList.add('globo');
-                globo.style.left = Math.random() * 90 + 5 + 'vw'; // Evitar bordes
+                globo.style.left = Math.random() * 90 + 5 + 'vw';
                 const color = coloresGlobos[Math.floor(Math.random() * coloresGlobos.length)];
                 
-                // Aplicar gradiente radial para realismo
-                globo.style.background = `radial-gradient(circle at 30% 30%, #fff 0%, ${color} 30%, ${color} 100%)`;
-                
-                // Color nudo (variable CSS para el pseudo-elemento)
+                globo.style.background = `radial-gradient(circle at 35% 35%, #fff 0%, ${color} 40%, ${color} 100%)`;
                 globo.style.setProperty('--globo-color', color);
 
-                globo.style.animationDuration = (Math.random() * 8 + 6) + 's'; // Más lentos y suaves
+                globo.style.animationDuration = (Math.random() * 8 + 6) + 's';
                 globosWrapper.appendChild(globo);
 
-                // Eliminar después de la animación
                 setTimeout(() => globo.remove(), 14000);
-            }, 1500); // Un globo nuevo cada 1.5s
+            }, 1500);
         }
 
         function iniciarConfetiInfinito() {
