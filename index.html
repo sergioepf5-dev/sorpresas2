@@ -14,7 +14,7 @@
             justify-content: center;
             align-items: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow: hidden; /* Importante para que nada se salga */
+            overflow: hidden;
             transition: background-color 1s ease;
         }
 
@@ -28,12 +28,12 @@
             font-size: 24px;
             font-weight: bold;
             color: white;
-            background-color: #ff4081; /* Un color vibrante */
+            background-color: #ff4081;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
-            z-index: 100; /* Siempre por encima */
+            z-index: 100;
             transition: transform 0.2s;
         }
 
@@ -41,7 +41,7 @@
             transform: scale(1.05);
         }
 
-        /* 2. SORPRESA: Fondo amarillo y elementos visibles */
+        /* 2. SORPRESA: Fondo amarillo */
         body.sorpresa {
             background-color: #FFEB3B;
         }
@@ -65,14 +65,14 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
-        /* --- EFECTO: Confeti Infinito --- */
+        /* --- Confeti Infinito --- */
         .confetti-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* No interrumpen los clics */
+            pointer-events: none;
             z-index: 10;
         }
 
@@ -91,16 +91,16 @@
             100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
         }
 
-        /* --- EFECTO: Elementos Flotantes (Gatos y Fotos) --- */
+        /* --- Elementos Flotantes (Gatos + Fotos) --- */
         .floating-element {
             position: absolute;
-            bottom: -150px; /* Empiezan abajo */
-            width: 100px; /* Tamaño de los iconos/fotos */
+            bottom: -150px;
+            width: 110px;
             height: auto;
-            opacity: 0.9;
+            opacity: 0.95;
             z-index: 20;
             animation: floatUp infinite ease-in;
-            border-radius: 15px; /* Bordes redondeados para fotos */
+            border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
@@ -110,7 +110,6 @@
             90% { opacity: 1; }
             100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
         }
-
     </style>
 </head>
 <body class="inicio">
@@ -139,20 +138,17 @@
         const confettiWrapper = document.getElementById('confetti-wrapper');
         const floatingWrapper = document.getElementById('floating-wrapper');
 
-        // --- CONFIGURACIÓN: Aquí añades los enlaces de tus fotos y gatos ---
-        // Puedes usar enlaces directos de GIFs de Giphy o Tenor.
-        // Y enlaces directos a las fotos del cumpleañero (subidas a GitHub o Imgur).
+        // GIFs de Gatos y Fotos locales
         const elementosFlotantes = [
-            // GIFs de Gatos ( Stickers)
-            'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/3o72EX5QZ9N9d65N2E/giphy.gif', // Gato bailando
-            'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/mlvseq9yvZhba/giphy.gif', // Gato party
-            'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/JIX95AtrU5cHcOcH5l/giphy.gif', // Gato pastel
-            'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/C9x8gX02SnMIo/giphy.gif', // Gato lentes
-
-            // --- AÑADE AQUÍ LOS ENLACES DE LAS FOTOS DEL CUMPLEAÑERO ---
-            // 'https://tuservidor.com/foto1.jpg',
-            // 'https://tuservidor.com/foto2.jpg',
-            // 'https://github.com/tuusuario/turepositorio/raw/main/foto3.png', // Ejemplo desde GitHub
+            'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/3o72EX5QZ9N9d65N2E/giphy.gif',
+            'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/mlvseq9yvZhba/giphy.gif',
+            'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/JIX95AtrU5cHcOcH5l/giphy.gif',
+            'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/C9x8gX02SnMIo/giphy.gif',
+            
+            // Tus Fotos subidas
+            'foto1.jpeg',
+            'foto2.jpeg',
+            'foto3.jpeg'
         ];
 
         btn.addEventListener('click', () => {
@@ -160,19 +156,13 @@
             body.classList.remove('inicio');
             body.classList.add('sorpresa');
 
-            // 1. Iniciar Música
+            // Reproducir Música
             musica.play();
 
-            // 2. Iniciar Confeti Infinito
+            // Iniciar Efectos
             iniciarConfetiInfinito();
-
-            // 3. Iniciar Elementos Flotantes (Gatos + Fotos)
-            if (elementosFlotantes.length > 0) {
-                iniciarElementosFlotantes();
-            }
+            iniciarElementosFlotantes();
         });
-
-        // --- FUNCIONES DE EFECTOS ---
 
         function iniciarConfetiInfinito() {
             const colores = ['#ff1744', '#2979ff', '#00e676', '#ffea00', '#ff4081', '#ffffff'];
@@ -181,12 +171,11 @@
                 pajarito.classList.add('confetti');
                 pajarito.style.left = Math.random() * 100 + 'vw';
                 pajarito.style.backgroundColor = colores[Math.floor(Math.random() * colores.length)];
-                pajarito.style.animationDuration = (Math.random() * 3 + 2) + 's'; // Velocidad aleatoria
+                pajarito.style.animationDuration = (Math.random() * 3 + 2) + 's';
                 confettiWrapper.appendChild(pajarito);
 
-                // Eliminar después de la animación para no saturar la memoria
                 setTimeout(() => pajarito.remove(), 5000);
-            }, 100); // Crea un confeti cada 100ms (infinito)
+            }, 100);
         }
 
         function iniciarElementosFlotantes() {
@@ -195,15 +184,13 @@
                 const img = document.createElement('img');
                 img.src = src;
                 img.classList.add('floating-element');
-                img.style.left = Math.random() * 80 + 10 + 'vw'; // Evitar bordes
-                img.style.animationDuration = (Math.random() * 6 + 4) + 's'; // Velocidad aleatoria
+                img.style.left = Math.random() * 80 + 10 + 'vw';
+                img.style.animationDuration = (Math.random() * 6 + 4) + 's';
                 floatingWrapper.appendChild(img);
 
-                // Eliminar después de la animación
                 setTimeout(() => img.remove(), 10000);
-            }, 800); // Crea un elemento nuevo cada 800ms (infinito)
+            }, 800);
         }
-
     </script>
 
 </body>
