@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Sorpresa de Cumpleaños!</title>
+    <title>AAAAAAAAAA</title>
     <style>
         body, html {
             margin: 0;
@@ -24,21 +24,22 @@
         }
 
         #btn-iniciar {
-            padding: 20px 40px;
-            font-size: 24px;
+            padding: 25px 50px;
+            font-size: 28px;
             font-weight: bold;
             color: white;
             background-color: #ff4081;
             border: none;
-            border-radius: 50px;
+            border-radius: 60px;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
+            box-shadow: 0 6px 20px rgba(255, 64, 129, 0.5);
             z-index: 100;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
         #btn-iniciar:hover {
-            transform: scale(1.05);
+            transform: scale(1.08);
+            box-shadow: 0 8px 25px rgba(255, 64, 129, 0.7);
         }
 
         /* 2. SORPRESA: Fondo amarillo */
@@ -59,10 +60,10 @@
         }
 
         h1 {
-            font-size: 4rem;
+            font-size: 5rem;
             color: #333;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
         }
 
         /* --- Confeti Infinito --- */
@@ -78,8 +79,8 @@
 
         .confetti {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             background-color: #ffd700;
             opacity: 0.8;
             border-radius: 50%;
@@ -91,35 +92,37 @@
             100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
         }
 
-        /* --- Elementos Flotantes (Gatos + Fotos) --- */
+        /* --- Elementos Flotantes (Gatos + Fotos) - MÁS GRANDES Y LENTOS --- */
         .floating-element {
             position: absolute;
-            bottom: -150px;
-            width: 110px;
+            bottom: -250px; /* Empiezan más abajo por ser más grandes */
+            width: 180px; /* MÁS GRANDE (antes 110px) */
             height: auto;
-            opacity: 0.95;
+            opacity: 0.98;
             z-index: 20;
-            animation: floatUp infinite ease-in;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            animation: floatUp infinite ease-in; /* La animación es más lenta por JS */
+            border-radius: 20px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
         }
 
+        /* Definimos la animación base, pero la duración se cambia por JS */
         @keyframes floatUp {
             0% { transform: translateY(0) rotate(0deg); opacity: 0; }
             10% { opacity: 1; }
             90% { opacity: 1; }
-            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+            100% { transform: translateY(-130vh) rotate(360deg); opacity: 0; } /* Sube más alto */
         }
     </style>
 </head>
 <body class="inicio">
 
     <!-- BOTÓN DE INICIO -->
-    <button id="btn-iniciar">👉 COMENZAR SORPRESA 👈</button>
+    <button id="btn-iniciar">HOLA PRESIONAR AQUI</button>
 
     <!-- CONTENIDO: ¡FELIZ CUMPLEAÑOS! -->
     <div class="contenido-sorpresa">
-        <h1>¡FELIZ CUMPLEAÑOS! 🥳🎉</h1>
+        <h1>FELIZ 20 YADHIRA </h1>
     </div>
 
     <!-- CONTENEDORES PARA EFECTOS -->
@@ -138,14 +141,14 @@
         const confettiWrapper = document.getElementById('confetti-wrapper');
         const floatingWrapper = document.getElementById('floating-wrapper');
 
-        // GIFs de Gatos y Fotos locales
+        // GIFs de Gatos (Nuevos enlaces más estables) y Fotos locales
         const elementosFlotantes = [
-            'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/3o72EX5QZ9N9d65N2E/giphy.gif',
-            'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/mlvseq9yvZhba/giphy.gif',
-            'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/JIX95AtrU5cHcOcH5l/giphy.gif',
-            'https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/C9x8gX02SnMIo/giphy.gif',
+            'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/3o72EX5QZ9N9d65N2E/giphy.gif',
+            'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/mlvseq9yvZhba/giphy.gif',
+            'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/JIX95AtrU5cHcOcH5l/giphy.gif',
+            'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/C9x8gX02SnMIo/giphy.gif',
             
-            // Tus Fotos subidas
+            // Tus Fotos subidas (foto1.jpeg, foto2.jpeg, foto3.jpeg)
             'foto1.jpeg',
             'foto2.jpeg',
             'foto3.jpeg'
@@ -185,11 +188,218 @@
                 img.src = src;
                 img.classList.add('floating-element');
                 img.style.left = Math.random() * 80 + 10 + 'vw';
-                img.style.animationDuration = (Math.random() * 6 + 4) + 's';
+                
+                // MÁS LENTOS: Aumentamos la duración de la animación (antes era 4s-10s)
+                img.style.animationDuration = (Math.random() * 8 + 8) + 's'; // Ahora entre 8s y 16s
+
                 floatingWrapper.appendChild(img);
 
-                setTimeout(() => img.remove(), 10000);
-            }, 800);
+                // Eliminar después de la animación (aumentamos el tiempo por ser más lenta)
+                setTimeout(() => img.remove(), 16000); 
+            }, 1000); // Un elemento nuevo cada segundo (antes 800ms)
+        }
+    </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Sorpresa de Cumpleaños!</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            transition: background-color 1s ease;
+        }
+
+        /* 1. INICIO: Todo blanco y centrado */
+        body.inicio {
+            background-color: #ffffff;
+        }
+
+        #btn-iniciar {
+            padding: 25px 50px;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            background-color: #ff4081;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 64, 129, 0.5);
+            z-index: 100;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        #btn-iniciar:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 25px rgba(255, 64, 129, 0.7);
+        }
+
+        /* 2. SORPRESA: Fondo amarillo */
+        body.sorpresa {
+            background-color: #FFEB3B;
+        }
+
+        .contenido-sorpresa {
+            display: none;
+            text-align: center;
+            z-index: 50;
+        }
+
+        body.sorpresa .contenido-sorpresa {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 5rem;
+            color: #333;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+        }
+
+        /* --- Confeti Infinito --- */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background-color: #ffd700;
+            opacity: 0.8;
+            border-radius: 50%;
+            animation: fall infinite linear;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* --- Elementos Flotantes (Gatos + Fotos) - MÁS GRANDES Y LENTOS --- */
+        .floating-element {
+            position: absolute;
+            bottom: -250px; /* Empiezan más abajo por ser más grandes */
+            width: 180px; /* MÁS GRANDE (antes 110px) */
+            height: auto;
+            opacity: 0.98;
+            z-index: 20;
+            animation: floatUp infinite ease-in; /* La animación es más lenta por JS */
+            border-radius: 20px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+
+        /* Definimos la animación base, pero la duración se cambia por JS */
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-130vh) rotate(360deg); opacity: 0; } /* Sube más alto */
+        }
+    </style>
+</head>
+<body class="inicio">
+
+    <!-- BOTÓN DE INICIO -->
+    <button id="btn-iniciar">👉 COMENZAR SORPRESA 👈</button>
+
+    <!-- CONTENIDO: ¡FELIZ CUMPLEAÑOS! -->
+    <div class="contenido-sorpresa">
+        <h1>¡FELIZ CUMPLEAÑOS! 🥳🎉</h1>
+    </div>
+
+    <!-- CONTENEDORES PARA EFECTOS -->
+    <div class="confetti-container" id="confetti-wrapper"></div>
+    <div id="floating-wrapper"></div>
+
+    <!-- AUDIO -->
+    <audio id="musica" loop preload="auto">
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const btn = document.getElementById('btn-iniciar');
+        const body = document.body;
+        const musica = document.getElementById('musica');
+        const confettiWrapper = document.getElementById('confetti-wrapper');
+        const floatingWrapper = document.getElementById('floating-wrapper');
+
+        // GIFs de Gatos (Nuevos enlaces más estables) y Fotos locales
+        const elementosFlotantes = [
+            'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/3o72EX5QZ9N9d65N2E/giphy.gif',
+            'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/mlvseq9yvZhba/giphy.gif',
+            'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/JIX95AtrU5cHcOcH5l/giphy.gif',
+            'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/C9x8gX02SnMIo/giphy.gif',
+            
+            // Tus Fotos subidas (foto1.jpeg, foto2.jpeg, foto3.jpeg)
+            'foto1.jpeg',
+            'foto2.jpeg',
+            'foto3.jpeg'
+        ];
+
+        btn.addEventListener('click', () => {
+            btn.style.display = 'none';
+            body.classList.remove('inicio');
+            body.classList.add('sorpresa');
+
+            // Reproducir Música
+            musica.play();
+
+            // Iniciar Efectos
+            iniciarConfetiInfinito();
+            iniciarElementosFlotantes();
+        });
+
+        function iniciarConfetiInfinito() {
+            const colores = ['#ff1744', '#2979ff', '#00e676', '#ffea00', '#ff4081', '#ffffff'];
+            setInterval(() => {
+                const pajarito = document.createElement('div');
+                pajarito.classList.add('confetti');
+                pajarito.style.left = Math.random() * 100 + 'vw';
+                pajarito.style.backgroundColor = colores[Math.floor(Math.random() * colores.length)];
+                pajarito.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                confettiWrapper.appendChild(pajarito);
+
+                setTimeout(() => pajarito.remove(), 5000);
+            }, 100);
+        }
+
+        function iniciarElementosFlotantes() {
+            setInterval(() => {
+                const src = elementosFlotantes[Math.floor(Math.random() * elementosFlotantes.length)];
+                const img = document.createElement('img');
+                img.src = src;
+                img.classList.add('floating-element');
+                img.style.left = Math.random() * 80 + 10 + 'vw';
+                
+                // MÁS LENTOS: Aumentamos la duración de la animación (antes era 4s-10s)
+                img.style.animationDuration = (Math.random() * 8 + 8) + 's'; // Ahora entre 8s y 16s
+
+                floatingWrapper.appendChild(img);
+
+                // Eliminar después de la animación (aumentamos el tiempo por ser más lenta)
+                setTimeout(() => img.remove(), 16000); 
+            }, 1000); // Un elemento nuevo cada segundo (antes 800ms)
         }
     </script>
 
