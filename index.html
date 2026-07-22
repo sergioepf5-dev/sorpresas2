@@ -82,8 +82,8 @@
             position: absolute;
             bottom: -150px;
             width: 100px;
-            height: 100px; /* Redondo (mismo ancho y alto) */
-            border-radius: 50%; /* Esfera perfecta */
+            height: 100px;
+            border-radius: 50%;
             opacity: 0;
             animation: flotarGlobos infinite linear;
             box-shadow: inset -10px -10px 20px rgba(0,0,0,0.2), 0 5px 15px rgba(0,0,0,0.3);
@@ -146,7 +146,7 @@
             100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
         }
 
-        /* --- Elementos Flotantes (Menos Rotación) --- */
+        /* --- Elementos Flotantes (Gatos y Fotos) --- */
         .floating-element {
             position: absolute;
             bottom: -250px;
@@ -160,7 +160,6 @@
             transition: transform 0.3s ease;
         }
 
-        /* Animación con rotación suave (máximo ±25 grados) */
         @keyframes floatUp {
             0% { transform: translateY(0) rotate(-10deg); opacity: 0; }
             10% { opacity: 1; }
@@ -198,14 +197,13 @@
         const confettiWrapper = document.getElementById('confetti-wrapper');
         const floatingWrapper = document.getElementById('floating-wrapper');
 
-        // GIFs y Fotos locales (incluyendo foto4.jpeg)
         const elementosFlotantes = [
-            'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/owjkiwz58Lmes/giphy.gif', // Gato bailando
-            'gato-duerme.gif', // Gato durmiendo
+            'https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMTE0YWQ1MDNkYjU0YjRlOGFiNzAxMGIyNGExNmUzNmY5ZTgxYjBkZCZjdD1z/owjkiwz58Lmes/giphy.gif',
+            'gato-duerme.gif',
             'foto1.jpeg',
             'foto2.jpeg',
             'foto3.jpeg',
-            'foto4.jpeg' // Nueva foto agregada
+            'foto4.jpeg'
         ];
 
         btn.addEventListener('click', () => {
@@ -216,10 +214,14 @@
             // Reproducir Música
             musica.play();
 
-            // Iniciar Efectos
+            // 1. Iniciar los globos y confeti de inmediato
             iniciarGlobos();
             iniciarConfetiInfinito();
-            iniciarElementosFlotantes();
+
+            // 2. Iniciar fotos y GIFs con 1.5 segundos de retraso
+            setTimeout(() => {
+                iniciarElementosFlotantes();
+            }, 1500);
         });
 
         // --- FUNCIONES DE EFECTOS ---
@@ -241,7 +243,7 @@
                 globosWrapper.appendChild(globo);
 
                 setTimeout(() => globo.remove(), 14000);
-            }, 1500);
+            }, 1000); // Salen un poco más rápido al principio
         }
 
         function iniciarConfetiInfinito() {
