@@ -66,7 +66,7 @@
             text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
         }
 
-        /* --- GLOBOS CIRCULARES Y REALISTAS --- */
+        /* --- GLOBOS REALISTAS --- */
         .contenedor-globos {
             position: fixed;
             top: 0;
@@ -206,6 +206,9 @@
             'foto4.jpeg'
         ];
 
+        // Usamos una variable para rastrear si es la "explosión inicial"
+        let explosionInicial = true;
+
         btn.addEventListener('click', () => {
             btn.style.display = 'none';
             body.classList.remove('inicio');
@@ -214,7 +217,7 @@
             // Reproducir Música
             musica.play();
 
-            // 1. Iniciar los globos y confeti de inmediato
+            // 1. Iniciar los globos (con la explosión inicial habilitada)
             iniciarGlobos();
             iniciarConfetiInfinito();
 
@@ -229,21 +232,55 @@
         function iniciarGlobos() {
             globosWrapper.style.display = 'block';
             const coloresGlobos = ['#ff1744', '#2979ff', '#00e676', '#ffea00', '#ff4081', '#ffffff'];
-            
-            setInterval(() => {
+
+            // Función interna para crear UN globo
+            function crearGlobo(posicionInicial = null) {
                 const globo = document.createElement('div');
                 globo.classList.add('globo');
-                globo.style.left = Math.random() * 90 + 5 + 'vw';
-                const color = coloresGlobos[Math.floor(Math.random() * coloresGlobos.length)];
                 
+                // Determinar posición horizontal
+                let posicionX;
+                if (posicionInicial !== null) {
+                    posicionX = posicionInicial; // Posición forzada (para la explosión)
+                } else {
+                    posicionX = Math.random() * 90 + 5 + 'vw'; // Aleatoria (flujo normal)
+                }
+                
+                globo.style.left = posicionX;
+                
+                const color = coloresGlobos[Math.floor(Math.random() * coloresGlobos.length)];
                 globo.style.background = `radial-gradient(circle at 35% 35%, #fff 0%, ${color} 40%, ${color} 100%)`;
                 globo.style.setProperty('--globo-color', color);
 
-                globo.style.animationDuration = (Math.random() * 8 + 6) + 's';
+                // Variar velocidad y tamaño ligeramente para realismo
+                const duracion = (Math.random() * 4 + 6) + 's'; // Entre 6 y 10s
+                globo.style.animationDuration = duracion;
+                
+                const escala = 1 + (Math.random() * 0.3 - 0.15); // Variación ±15%
+                globo.style.transform = `scale(${escala})`;
+
                 globosWrapper.appendChild(globo);
 
-                setTimeout(() => globo.remove(), 14000);
-            }, 1000); // Salen un poco más rápido al principio
+                // Eliminar después de la animación
+                // Usamos la duración máxima posible para asegurar que se elimine
+                setTimeout(() => globo.remove(), 11000); 
+            }
+
+            // --- FASE 1: EXPLOSIÓN INICIAL (Solo la primera vez) ---
+            if (explosionInicial) {
+                // Crear 15 globos de golpe concentrados en el centro-abajo
+                for (let i = 0; i < 15; i++) {
+                    // Concentrados alrededor del centro (50% ± 10vw)
+                    const posicionConcentrada = (50 + (Math.random() * 20 - 10)) + 'vw';
+                    crearGlobo(posicionConcentrada);
+                }
+                explosionInicial = false; // Desactivar para el flujo normal
+            }
+
+            // --- FASE 2: FLUJO NORMAL (Continuo y aleatorio) ---
+            setInterval(() => {
+                crearGlobo(); // Crear un globo aleatorio
+            }, 1000); // Un globo nuevo cada 1s
         }
 
         function iniciarConfetiInfinito() {
@@ -275,6 +312,9 @@
             }, 800);
         }
     </script>
+
+</body>
+</html>
 
 </body>
 </html>
