@@ -28,7 +28,7 @@
       position: relative;
     }
 
-    /* Estado inicial */
+    /* Botón inicial */
     .btn-sorpresa {
       padding: 18px 36px;
       font-size: 1.4rem;
@@ -48,7 +48,7 @@
       background-color: #e2e2e2;
     }
 
-    /* Mensaje de Cumpleaños oculto al inicio */
+    /* Mensaje de Cumpleaños */
     .mensaje-cumple {
       display: none;
       font-size: 3.5rem;
@@ -108,9 +108,9 @@
   <!-- Texto de cumpleaños -->
   <h1 id="mensaje" class="mensaje-cumple">¡FELIZ CUMPLEAÑOS! 🥳🎉</h1>
 
-  <!-- Elemento de audio con la canción Manchild de Sabrina Carpenter -->
+  <!-- Elemento de audio usando el archivo subido al repositorio -->
   <audio id="musica" preload="auto">
-    <source src="https://files.catbox.moe/w20v3d.mp3" type="audio/mpeg">
+    <source src="musica.mp3" type="audio/mpeg">
   </audio>
 
   <script>
@@ -126,11 +126,11 @@
       const audio = document.getElementById('musica');
       audio.play().catch(e => console.log("Error al reproducir audio:", e));
 
-      // 4. Disparar confeti inicial intenso
+      // 4. Disparar confeti inicial
       lanzarConfeti();
 
       // 5. Crear ráfagas continuas de confeti
-      const intervaloConfeti = setInterval(() => {
+      setInterval(() => {
         confetti({
           particleCount: 40,
           spread: 80,
@@ -168,14 +168,12 @@
         const globo = document.createElement('div');
         globo.classList.add('globo');
         
-        // Estilos aleatorios para cada globo
         globo.style.left = Math.random() * 100 + 'vw';
         globo.style.backgroundColor = colores[Math.floor(Math.random() * colores.length)];
         globo.style.animationDuration = randomInRange(4, 8) + 's';
         
         document.body.appendChild(globo);
 
-        // Eliminar globo cuando termina la animación para no saturar la memoria
         setTimeout(() => {
           globo.remove();
         }, 8000);
