@@ -3,70 +3,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Sorpresa!</title>
+    <title>¡Sorpresa de Cumpleaños!</title>
     <style>
-        body {
+        /* Estilos base para que todo esté centrado y ocupe toda la pantalla */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #fde047; /* Fondo amarillo */
-            font-family: Arial, sans-serif;
-            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden; /* Para que no salgan barras de desplazamiento con los globos */
+            transition: background-color 1s ease; /* Animación suave para el cambio de color */
         }
 
-        h1 {
-            font-size: 3rem;
-            color: #1e293b;
-            margin-bottom: 20px;
+        /* 1. ESTADO INICIAL: Página "vacía" y negra */
+        body.inicio {
+            background-color: #000000;
         }
 
-        .btn-play {
-            padding: 15px 30px;
-            font-size: 1.2rem;
+        /* 2. ESTADO SORPRESA: Fondo amarillo */
+        body.sorpresa {
+            background-color: #FFEB3B; /* Un amarillo vibrante */
+        }
+
+        /* Botón de inicio centrado */
+        #btn-iniciar {
+            padding: 20px 40px;
+            font-size: 24px;
             font-weight: bold;
-            color: white;
-            background-color: #ef4444;
+            color: #ffffff;
+            background-color: #ff4081; /* Color rosado llamativo */
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            z-index: 10; /* Para que esté por encima de todo al principio */
         }
 
-        .btn-play:hover {
-            background-color: #dc2626;
+        #btn-iniciar:hover {
             transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 64, 129, 0.6);
         }
+
+        /* Elementos que están ocultos al principio */
+        .contenido-sorpresa {
+            display: none; /* Oculto por defecto */
+            text-align: center;
+            flex-direction: column;
+            align-items: center;
+            z-index: 5; /* Por debajo del botón, pero por encima del fondo */
+        }
+
+        body.sorpresa .contenido-sorpresa {
+            display: flex; /* Se muestra cuando el body tiene la clase .sorpresa */
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: #333;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* -- Estilos para los Globos -- */
+        .balloon-container {
+            position: absolute;
+            bottom: -150px; /* Empiezan fuera de la pantalla por abajo */
+            opacity: 0.8;
+            animation: floatUp 15s infinite ease-in;
+        }
+
+        .balloon {
+            width: 100px;
+            height: 120px;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .balloon::after { /* El nudo del globo */
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 40px;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 15px solid; /* El color se define abajo */
+        }
+
+        /* Definimos colores y posiciones aleatorias para los globos */
+        .balloon-container:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .balloon-container:nth-child(1) .balloon { background-color: #ff1744; } /* Rojo */
+        .balloon-container:nth-child(1) .balloon::after { border-top-color: #ff1744; }
+
+        .balloon-container:nth-child(2) { left: 30%; animation-delay: 3s; }
+        .balloon-container:nth-child(2) .balloon { background-color: #2979ff; } /* Azul */
+        .balloon-container:nth-child(2) .balloon::after { border-top-color: #2979ff; }
+
+        .balloon-container:nth-child(3) { left: 55%; animation-delay: 1s; }
+        .balloon-container:nth-child(3) .balloon { background-color: #00e676; } /* Verde */
+        .balloon-container:nth-child(3) .balloon::after { border-top-color: #00e676; }
+
+        .balloon-container:nth-child(4) { left: 80%; animation-delay: 5s; }
+        .balloon-container:nth-child(4) .balloon { background-color: #ffea00; } /* Amarillo */
+        .balloon-container:nth-child(4) .balloon::after { border-top-color: #ffea00; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-120vh); opacity: 0; } /* Suben hasta salir de la pantalla */
+        }
+
+        /* -- Estilos sencillos para el Confeti -- */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ffd700;
+            opacity: 0;
+            animation: confettiFall 4s infinite ease-out;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
     </style>
 </head>
-<body>
+<body class="inicio">
 
-    <h1>¡FELIZ CUMPLEAÑOS! 🥳🎉</h1>
+    <!-- BOTÓN DE INICIO: Lo único visible al principio -->
+    <button id="btn-iniciar">👉 COMENZAR SORPRESA 👈</button>
 
-    <!-- Botón para iniciar la música -->
-    <button class="btn-play" id="btnMusica">🎵 Toca aquí para la sorpresa 🎵</button>
+    <!-- TODO ESTO ESTÁ OCULTO AL PRINCIPIO -->
+    <div class="contenido-sorpresa">
+        <h1>¡FELIZ CUMPLEAÑOS! 🥳🎉</h1>
+        <p style="font-size: 1.5rem; color: #555;">(Sube el volumen 🔊)</p>
+    </div>
 
-    <!-- Elemento de Audio fuera del H1 -->
+    <!-- Contenedor para los globos (se generan con JS) -->
+    <div id="balloons-wrapper" style="display:none">
+        <div class="balloon-container"><div class="balloon"></div></div>
+        <div class="balloon-container"><div class="balloon"></div></div>
+        <div class="balloon-container"><div class="balloon"></div></div>
+        <div class="balloon-container"><div class="balloon"></div></div>
+    </div>
+
+    <!-- Contenedor para el confeti (se genera con JS) -->
+    <div id="confetti-wrapper" style="display:none"></div>
+
+    <!-- ELEMENTO DE AUDIO: Sin autoplay, con preload -->
     <audio id="musica" loop preload="auto">
         <source src="musica.mp3" type="audio/mpeg">
-        Tu navegador no soporta el reproductor de audio.
+        Tu navegador no soporta el audio.
     </audio>
 
     <script>
-        const boton = document.getElementById('btnMusica');
-        const audio = document.getElementById('musica');
+        const btnIniciar = document.getElementById('btn-iniciar');
+        const body = document.body;
+        const musica = document.getElementById('musica');
+        const balloonsWrapper = document.getElementById('balloons-wrapper');
+        const confettiWrapper = document.getElementById('confetti-wrapper');
 
-        boton.addEventListener('click', () => {
-            audio.play().then(() => {
-                boton.innerText = "🎶 ¡Música sonando! 🎶";
+        btnIniciar.addEventListener('click', () => {
+            // 1. Ocultar el botón
+            btnIniciar.style.display = 'none';
+
+            // 2. Cambiar clases del body (activa fondo amarillo y muestra contenido)
+            body.classList.remove('inicio');
+            body.classList.add('sorpresa');
+
+            // 3. Mostrar globos y confeti
+            balloonsWrapper.style.display = 'block';
+            confettiWrapper.style.display = 'block';
+            crearConfeti(); // Función para generar papelitos
+
+            // 4. ¡REPRODUCIR LA MÚSICA!
+            // .play() devuelve una Promesa, es buena práctica manejar el posible error
+            musica.play().then(() => {
+                console.log("¡Música sonando!");
             }).catch(error => {
-                console.log("Error al reproducir:", error);
-                alert("No se pudo reproducir el audio. Verifica que musica.mp3 esté en el repositorio.");
+                // Esto pasará si el archivo no existe o hay un problema del navegador
+                console.error("Error al reproducir el audio:", error);
+                alert("OE, no pude reproducir 'musica.mp3'. Asegúrate de que el archivo esté en la misma carpeta que este 'index.html' en tu GitHub.");
             });
         });
+
+        // Función sencilla para crear confeti aleatorio
+        function crearConfeti() {
+            const colores = ['#ff1744', '#2979ff', '#00e676', '#ffea00', '#ff4081', '#ffffff'];
+            for (let i = 0; i < 50; i++) {
+                const pajarito = document.createElement('div');
+                pajarito.classList.add('confetti');
+                pajarito.style.left = Math.random() * 100 + 'vw'; // Posición horizontal aleatoria
+                pajarito.style.backgroundColor = colores[Math.floor(Math.random() * colores.length)]; // Color aleatorio
+                pajarito.style.animationDelay = Math.random() * 2 + 's'; // Retraso aleatorio
+                pajarito.style.width = Math.random() * 8 + 5 + 'px'; // Tamaño aleatorio
+                pajarito.style.height = pajarito.style.width;
+                confettiWrapper.appendChild(pajarito);
+            }
+        }
     </script>
 
 </body>
